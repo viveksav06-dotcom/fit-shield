@@ -1,4 +1,6 @@
-import React from 'react';
+
+import React, { useState } from 'react';
+import BottomCart from './BottomCart';
 
 interface MenuPageProps {
   onBack: () => void;
@@ -8,7 +10,7 @@ interface MenuPageProps {
 
 const MenuPage: React.FC<MenuPageProps> = ({ onBack, onCart, onCustomise }) => {
   return (
-    <div className="flex flex-col items-center w-full bg-[#0F0E11] min-h-screen px-0 pb-32 gap-6 relative">
+    <div className="flex flex-col items-center w-full bg-[#0F0E11] min-h-screen px-0 pb-40 gap-6 relative">
       {/* Sticky Header */}
       <div className="sticky top-0 z-[60] bg-[#0F0E11]/95 backdrop-blur-md flex w-full justify-between items-center py-4 px-4 border-b border-[#1B1B1B]">
         <div className="flex items-center gap-1">
@@ -58,7 +60,7 @@ const MenuPage: React.FC<MenuPageProps> = ({ onBack, onCart, onCustomise }) => {
         </div>
       </div>
 
-      {/* Calories Progress Bar (Frame 1618877150) */}
+      {/* Calories Progress Bar */}
       <div className="w-full px-4 flex flex-col gap-2">
         <div className="flex flex-col w-full gap-2">
           <div className="relative h-[19px] w-full bg-[#222328] rounded-[6px] overflow-hidden">
@@ -170,6 +172,9 @@ const MenuPage: React.FC<MenuPageProps> = ({ onBack, onCart, onCustomise }) => {
           />
         </div>
       </div>
+
+      {/* Bottom Cart UI Overlay */}
+      <BottomCart itemCount={2} onContinue={onCart} />
     </div>
   );
 };

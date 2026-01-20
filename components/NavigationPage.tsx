@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface NavigationPageProps {
-  onNavigate: (page: 'login' | 'otp' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize' | 'components_library') => void;
+  onNavigate: (page: 'login' | 'otp' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize' | 'components_library' | 'preference') => void;
 }
 
 const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
@@ -42,6 +42,12 @@ const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
 
         <div className="h-[1px] w-full bg-[#2F2F2F] my-2"></div>
 
+        <NavCard 
+          title="Allergies / Preference" 
+          description="Select ingredients you want to avoid"
+          icon="🚫"
+          onClick={() => onNavigate('preference')}
+        />
         <NavCard 
           title="Personalize Form" 
           description="Tailor your profile settings"

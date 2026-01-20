@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
 
 interface PersonalizePageProps {
   onBack: () => void;
@@ -12,13 +13,60 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isHeightPickerOpen, setIsHeightPickerOpen] = useState(false);
   const [isWeightPickerOpen, setIsWeightPickerOpen] = useState(false);
+  
   const [selectedDate, setSelectedDate] = useState({ day: '15', month: 'June', year: '1998' });
   const [selectedHeight, setSelectedHeight] = useState('165');
   const [selectedWeight, setSelectedWeight] = useState('65');
   const [weightUnit, setWeightUnit] = useState<'Kg' | 'Lbs'>('Kg');
 
+  const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const years = Array.from({ length: 100 }, (_, i) => (2024 - i).toString());
   const heights = Array.from({ length: 151 }, (_, i) => (100 + i).toString());
   const weights = Array.from({ length: 201 }, (_, i) => (30 + i).toString());
+
+  // Reusable Scroll Picker Component
+  const ScrollPicker = ({ items, current, onSelect, unit }: { items: string[], current: string, onSelect: (val: string) => void, unit?: string }) => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (scrollRef.current) {
+        const index = items.indexOf(current);
+        if (index !== -1) {
+          const itemHeight = 46; // h-11 plus small margin
+          scrollRef.current.scrollTop = index * itemHeight;
+        }
+      }
+    }, []);
+
+    const handleScroll = () => {
+      if (!scrollRef.current) return;
+      const itemHeight = 46;
+      const index = Math.round(scrollRef.current.scrollTop / itemHeight);
+      if (items[index] && items[index] !== current) {
+        onSelect(items[index]);
+      }
+    };
+
+    return (
+      <div className="relative h-[180px] flex-1 overflow-hidden">
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="h-full overflow-y-auto no-scrollbar scroll-smooth snap-y snap-mandatory py-[67px]"
+        >
+          {items.map((item) => (
+            <div 
+              key={item} 
+              className={`h-[46px] flex items-center justify-center snap-center transition-all duration-200 ${item === current ? 'text-[#8FFC86] text-[22px] font-bold' : 'text-[#7C7C7C] text-[18px] opacity-40'}`}
+            >
+              {item}{unit && item === current ? <span className="text-[12px] ml-1 font-normal">{unit}</span> : ''}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-[#0F0E11] relative">
@@ -44,12 +92,12 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
         {/* Form Content */}
         <div className="flex flex-col gap-7 w-full mb-10">
           
-          {/* Date of Birth */}
+          {/* Date of Birth Input */}
           <div className="flex flex-col gap-2.5">
             <label className="text-[#EFEFEF] text-[18px] font-bold" style={{ fontFamily: 'Quicksand' }}>Date of birth</label>
             <div 
               onClick={() => setIsDatePickerOpen(true)}
-              className="flex h-11 px-3 items-center rounded-xl bg-[#222328] cursor-pointer active:bg-[#2a2b30] transition-colors"
+              className="flex h-11 px-3 items-center rounded-xl bg-[#222328] border border-transparent active:border-[#8FFC86]/30 transition-all"
             >
               <span className="text-[#CDCDCD] text-[18px] font-normal" style={{ fontFamily: 'Quicksand' }}>
                 {selectedDate.day} / {selectedDate.month} / {selectedDate.year}
@@ -76,12 +124,12 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
             </div>
           </div>
 
-          {/* Height */}
+          {/* Height Input */}
           <div className="flex flex-col gap-2.5">
             <label className="text-[#EFEFEF] text-[18px] font-bold" style={{ fontFamily: 'Quicksand' }}>Height</label>
             <div 
               onClick={() => setIsHeightPickerOpen(true)}
-              className="flex h-11 px-3 items-center rounded-xl bg-[#222328] cursor-pointer active:bg-[#2a2b30] transition-colors"
+              className="flex h-11 px-3 items-center rounded-xl bg-[#222328] border border-transparent active:border-[#8FFC86]/30 transition-all"
             >
               <span className="text-[#CDCDCD] text-[18px] font-normal" style={{ fontFamily: 'Quicksand' }}>
                 {selectedHeight} cm
@@ -89,12 +137,12 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
             </div>
           </div>
 
-          {/* Weight */}
+          {/* Weight Input */}
           <div className="flex flex-col gap-2.5">
             <label className="text-[#EFEFEF] text-[18px] font-bold" style={{ fontFamily: 'Quicksand' }}>Weight</label>
             <div 
               onClick={() => setIsWeightPickerOpen(true)}
-              className="flex h-11 px-3 items-center rounded-xl bg-[#222328] cursor-pointer active:bg-[#2a2b30] transition-colors"
+              className="flex h-11 px-3 items-center rounded-xl bg-[#222328] border border-transparent active:border-[#8FFC86]/30 transition-all"
             >
               <span className="text-[#CDCDCD] text-[18px] font-normal" style={{ fontFamily: 'Quicksand' }}>
                 {selectedWeight} {weightUnit}
@@ -129,9 +177,9 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
                 ))}
               </div>
             </div>
-            <span className="text-[#CDFFC9] text-[12px] font-medium" style={{ fontFamily: 'Quicksand' }}>
+            <p className="text-[#CDFFC9] text-[12px] font-medium" style={{ fontFamily: 'Quicksand' }}>
               *{activity === 'Sedentary' ? 'Little or no exercise.' : activity === 'Light' ? 'Light exercise 1-3 days/week.' : 'Intense training/physical job.'}
-            </span>
+            </p>
           </div>
 
           {/* Goal Selection */}
@@ -151,7 +199,6 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
               </div>
             </div>
           </div>
-
         </div>
 
         {/* Footer CTA */}
@@ -163,59 +210,25 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
         </button>
       </div>
 
-      {/* DOB Date Picker Sheet */}
+      {/* DOB Date Picker Sheet with Scroll Snap */}
       {isDatePickerOpen && (
         <div className="fixed inset-0 z-[100] flex items-end justify-center">
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" 
-            onClick={() => setIsDatePickerOpen(false)}
-          ></div>
-          <div className="relative w-full max-w-[390px] h-[300px] bg-[#222328] rounded-t-[24px] border-t-[0.7px] border-[#7C7C7C] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom duration-300">
-            <div className="w-10 h-1 bg-[#404040] rounded-full mx-auto mt-3 mb-4"></div>
-            <div className="flex-1 flex px-6 overflow-hidden">
-              <div className="flex-1 flex flex-col items-center overflow-y-auto no-scrollbar py-10">
-                {Array.from({ length: 31 }, (_, i) => i + 1).map(d => (
-                  <div 
-                    key={d}
-                    onClick={() => setSelectedDate(prev => ({ ...prev, day: d.toString() }))}
-                    className={`py-3 text-[20px] font-medium cursor-pointer transition-colors ${selectedDate.day === d.toString() ? 'text-[#8FFC86]' : 'text-[#7C7C7C]'}`}
-                    style={{ fontFamily: 'Lexend' }}
-                  >
-                    {d}
-                  </div>
-                ))}
-              </div>
-              <div className="flex-[1.5] flex flex-col items-center overflow-y-auto no-scrollbar py-10 border-x border-[#404040]/30">
-                {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map(m => (
-                  <div 
-                    key={m}
-                    onClick={() => setSelectedDate(prev => ({ ...prev, month: m }))}
-                    className={`py-3 text-[18px] font-medium cursor-pointer transition-colors ${selectedDate.month === m ? 'text-[#8FFC86]' : 'text-[#7C7C7C]'}`}
-                    style={{ fontFamily: 'Quicksand' }}
-                  >
-                    {m}
-                  </div>
-                ))}
-              </div>
-              <div className="flex-1 flex flex-col items-center overflow-y-auto no-scrollbar py-10">
-                {Array.from({ length: 100 }, (_, i) => 2024 - i).map(y => (
-                  <div 
-                    key={y}
-                    onClick={() => setSelectedDate(prev => ({ ...prev, year: y.toString() }))}
-                    className={`py-3 text-[20px] font-medium cursor-pointer transition-colors ${selectedDate.year === y.toString() ? 'text-[#8FFC86]' : 'text-[#7C7C7C]'}`}
-                    style={{ fontFamily: 'Lexend' }}
-                  >
-                    {y}
-                  </div>
-                ))}
-              </div>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setIsDatePickerOpen(false)}></div>
+          <div className="relative w-full max-w-[390px] bg-[#222328] rounded-t-[24px] border-t-[0.7px] border-[#7C7C7C] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom duration-300">
+            <div className="w-10 h-1 bg-[#404040] rounded-full mx-auto mt-3 mb-2"></div>
+            
+            <div className="relative flex px-6 py-4 overflow-hidden h-[220px]">
+              <div className="absolute top-1/2 left-0 right-0 h-[46px] -translate-y-1/2 border-y border-[#404040]/50 pointer-events-none bg-white/5"></div>
+              
+              <ScrollPicker items={days} current={selectedDate.day} onSelect={(val) => setSelectedDate(p => ({ ...p, day: val }))} />
+              <ScrollPicker items={months} current={selectedDate.month} onSelect={(val) => setSelectedDate(p => ({ ...p, month: val }))} />
+              <ScrollPicker items={years} current={selectedDate.year} onSelect={(val) => setSelectedDate(p => ({ ...p, year: val }))} />
             </div>
-            <div className="absolute top-[138px] left-0 right-0 h-[46px] border-y border-[#404040]/30 pointer-events-none"></div>
-            <div className="p-4 border-t border-[#404040]/30">
+
+            <div className="p-4 pt-0">
               <button 
                 onClick={() => setIsDatePickerOpen(false)}
-                className="w-full py-2.5 bg-[#8FFC86] rounded-xl text-[#242424] font-bold text-[16px] active:scale-[0.98] transition-all"
-                style={{ fontFamily: 'Quicksand' }}
+                className="w-full py-3 bg-[#8FFC86] rounded-xl text-[#242424] font-bold text-[18px] active:scale-[0.98] transition-all"
               >
                 Done
               </button>
@@ -224,41 +237,22 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
         </div>
       )}
 
-      {/* Height Picker Sheet */}
+      {/* Height Picker Sheet with Scroll Snap */}
       {isHeightPickerOpen && (
         <div className="fixed inset-0 z-[100] flex items-end justify-center">
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" 
-            onClick={() => setIsHeightPickerOpen(false)}
-          ></div>
-          <div className="relative w-full max-w-[390px] h-[300px] bg-[#222328] rounded-t-[24px] border-t-[0.7px] border-[#7C7C7C] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom duration-300">
-            <div className="w-10 h-1 bg-[#404040] rounded-full mx-auto mt-3 mb-4"></div>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setIsHeightPickerOpen(false)}></div>
+          <div className="relative w-full max-w-[390px] bg-[#222328] rounded-t-[24px] border-t-[0.7px] border-[#7C7C7C] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom duration-300">
+            <div className="w-10 h-1 bg-[#404040] rounded-full mx-auto mt-3 mb-2"></div>
             
-            <div className="flex-1 flex px-10 overflow-hidden relative">
-              <div className="flex-1 flex flex-col items-center overflow-y-auto no-scrollbar py-20">
-                {heights.map(h => (
-                  <div 
-                    key={h}
-                    onClick={() => setSelectedHeight(h)}
-                    className={`py-4 text-[24px] font-semibold cursor-pointer transition-colors ${selectedHeight === h ? 'text-[#8FFC86]' : 'text-[#7C7C7C]'}`}
-                    style={{ fontFamily: 'Lexend' }}
-                  >
-                    {h}
-                  </div>
-                ))}
-              </div>
-              <div className="absolute right-[25%] top-[50%] -translate-y-[50%]">
-                <span className="text-white text-[18px] font-bold" style={{ fontFamily: 'Quicksand' }}>cm</span>
-              </div>
+            <div className="relative flex px-10 py-4 h-[220px] items-center">
+              <div className="absolute top-1/2 left-0 right-0 h-[46px] -translate-y-1/2 border-y border-[#404040]/50 pointer-events-none bg-white/5"></div>
+              <ScrollPicker items={heights} current={selectedHeight} unit="cm" onSelect={setSelectedHeight} />
             </div>
 
-            <div className="absolute top-[127px] left-0 right-0 h-[56px] border-y border-[#404040]/30 pointer-events-none"></div>
-
-            <div className="p-4 border-t border-[#404040]/30">
+            <div className="p-4 pt-0">
               <button 
                 onClick={() => setIsHeightPickerOpen(false)}
-                className="w-full py-2.5 bg-[#8FFC86] rounded-xl text-[#242424] font-bold text-[16px] active:scale-[0.98] transition-all"
-                style={{ fontFamily: 'Quicksand' }}
+                className="w-full py-3 bg-[#8FFC86] rounded-xl text-[#242424] font-bold text-[18px] active:scale-[0.98] transition-all"
               >
                 Done
               </button>
@@ -267,71 +261,42 @@ const PersonalizePage: React.FC<PersonalizePageProps> = ({ onBack, onNext }) => 
         </div>
       )}
 
-      {/* Weight Picker Sheet */}
+      {/* Weight Picker Sheet with Scroll Snap */}
       {isWeightPickerOpen && (
         <div className="fixed inset-0 z-[100] flex items-end justify-center">
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" 
-            onClick={() => setIsWeightPickerOpen(false)}
-          ></div>
-          <div className="relative w-full max-w-[390px] h-[336px] bg-[#222328] rounded-t-[24px] border-t-[0.7px] border-[#7C7C7C] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom duration-300">
-            <div className="w-10 h-1 bg-[#404040] rounded-full mx-auto mt-3 mb-4 shrink-0"></div>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={() => setIsWeightPickerOpen(false)}></div>
+          <div className="relative w-full max-w-[390px] bg-[#222328] rounded-t-[24px] border-t-[0.7px] border-[#7C7C7C] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.5)] animate-in slide-in-from-bottom duration-300">
+            <div className="w-10 h-1 bg-[#404040] rounded-full mx-auto mt-3 mb-2 shrink-0"></div>
             
-            <div className="flex-1 flex px-10 overflow-hidden relative">
-              {/* Central Scroller */}
-              <div className="flex-1 flex flex-col items-center overflow-y-auto no-scrollbar py-24 scroll-smooth">
-                {weights.map(w => (
-                  <div 
-                    key={w}
-                    onClick={() => setSelectedWeight(w)}
-                    className={`py-2 text-center transition-all duration-200 cursor-pointer ${
-                      selectedWeight === w 
-                        ? 'text-white text-[36px] font-bold h-[54px] flex items-center' 
-                        : Math.abs(parseInt(selectedWeight) - parseInt(w)) === 1
-                        ? 'text-[#FCFCFC] text-[26px] font-semibold opacity-80 h-[40px] flex items-center'
-                        : Math.abs(parseInt(selectedWeight) - parseInt(w)) === 2
-                        ? 'text-[#E6E6E6] text-[16px] font-semibold opacity-60 h-[28px] flex items-center'
-                        : 'text-[#868686] text-[12px] font-semibold opacity-40 h-[20px] flex items-center'
-                    }`}
-                    style={{ fontFamily: 'Quicksand' }}
-                  >
-                    {w}
-                  </div>
-                ))}
-              </div>
+            <div className="relative flex px-10 py-4 h-[250px] overflow-hidden">
+              <div className="absolute top-1/2 left-0 right-[35%] h-[56px] -translate-y-1/2 border-y border-[#404040]/50 pointer-events-none bg-white/5"></div>
+              
+              <ScrollPicker items={weights} current={selectedWeight} onSelect={setSelectedWeight} />
 
-              {/* Units Selection Column */}
-              <div className="absolute right-[15%] top-[50%] -translate-y-[50%] flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center justify-center gap-6 w-20 shrink-0 border-l border-[#404040]/30 ml-4">
                 <button 
                   onClick={() => setWeightUnit('Lbs')}
                   className={`text-[16px] font-semibold transition-colors ${weightUnit === 'Lbs' ? 'text-white' : 'text-[#A2A2A2]'}`}
-                  style={{ fontFamily: 'Quicksand' }}
                 >
                   Lbs
                 </button>
                 <button 
                   onClick={() => setWeightUnit('Kg')}
                   className={`text-[24px] font-bold transition-colors ${weightUnit === 'Kg' ? 'text-white' : 'text-[#A2A2A2]'}`}
-                  style={{ fontFamily: 'Quicksand' }}
                 >
                   Kg
                 </button>
               </div>
             </div>
 
-            {/* Visual Selection Guides */}
-            <div className="absolute top-[141px] left-[5%] right-[35%] h-[0.7px] bg-[#434343] pointer-events-none"></div>
-            <div className="absolute top-[195px] left-[5%] right-[35%] h-[0.7px] bg-[#434343] pointer-events-none"></div>
-
-            {/* Home Indicator Styled Done Button */}
-            <div className="p-4 mt-auto">
+            <div className="p-4 pt-0">
               <button 
                 onClick={() => setIsWeightPickerOpen(false)}
-                className="w-full py-3 bg-[#8FFC86] rounded-xl text-[#242424] font-bold text-[18px] active:scale-[0.98] transition-all flex items-center justify-center relative overflow-hidden"
+                className="w-full py-3 bg-[#8FFC86] rounded-xl text-[#242424] font-bold text-[18px] active:scale-[0.98] transition-all"
               >
-                <span className="relative z-10">Done</span>
+                Done
               </button>
-              <div className="w-[139px] h-[5px] bg-white rounded-full mx-auto mt-4 mb-2"></div>
+              <div className="w-[139px] h-[5px] bg-white rounded-full mx-auto mt-4 mb-2 opacity-30"></div>
             </div>
           </div>
         </div>

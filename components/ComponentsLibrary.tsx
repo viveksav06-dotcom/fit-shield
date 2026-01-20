@@ -65,6 +65,82 @@ const ComponentsLibrary: React.FC<ComponentsLibraryProps> = ({ onBack }) => {
 
       <div className="flex flex-col w-full gap-12">
         
+        {/* Hunger Level Selection UI */}
+        <section className="flex flex-col gap-5 w-full">
+          <h2 className="text-[#8FFC86] text-xs font-bold uppercase tracking-[0.2em]">Hunger Level Options</h2>
+          <div className="flex flex-col gap-4 w-full max-w-[400px]">
+             {/* High Level Selected */}
+             <div className="flex w-full h-[46px] items-center gap-3 rounded-xl border border-[#00C600] bg-[#222328]/50 backdrop-blur-md px-4 shadow-[0_0_15px_rgba(0,198,0,0.2)]">
+                <div className="w-8 h-8 flex items-center justify-center">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                     <rect x="2" y="6" width="18" height="12" rx="2" stroke="#00C600" strokeWidth="1.5" />
+                     <path d="M22 10V14" stroke="#00C600" strokeWidth="1.5" strokeLinecap="round" />
+                     <rect x="4" y="8" width="14" height="8" rx="1" fill="#00C600" />
+                   </svg>
+                </div>
+                <span className="text-white text-lg font-bold font-['Quicksand']">Full</span>
+                <div className="ml-auto w-5 h-5 rounded-full bg-[#00C600] flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F0E11" strokeWidth="4">
+                    <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+             </div>
+
+             {/* Medium Level Normal */}
+             <div className="flex w-full h-[46px] items-center gap-3 rounded-xl border border-transparent bg-[#222328] px-4">
+                <div className="w-8 h-8 flex items-center justify-center">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                     <rect x="2" y="6" width="18" height="12" rx="2" stroke="#969696" strokeWidth="1.5" />
+                     <path d="M22 10V14" stroke="#969696" strokeWidth="1.5" strokeLinecap="round" />
+                     <rect x="4" y="8" width="6" height="8" rx="1" fill="#FF8C00" />
+                     <rect x="11" y="8" width="6" height="8" rx="1" fill="#FF8C00" />
+                   </svg>
+                </div>
+                <span className="text-[#CDCDCD] text-lg font-medium font-['Quicksand']">Medium</span>
+             </div>
+          </div>
+        </section>
+
+        {/* Preferences & Allergies Selection UI */}
+        <section className="flex flex-col gap-5 w-full">
+          <h2 className="text-[#8FFC86] text-xs font-bold uppercase tracking-[0.2em]">Preferences & Selection</h2>
+          <div className="flex flex-col gap-6 p-6 bg-[#18171C] rounded-[24px] border border-[#2F2F2F] w-full max-w-[400px]">
+             {/* Selected Tag Component */}
+             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#222328] w-fit border border-[#2F2F2F]">
+                <img src="https://api.builder.io/api/v1/image/assets/TEMP/milk-icon" className="w-4 h-4" alt="" />
+                <span className="text-white text-[14px] font-medium" style={{ fontFamily: 'Quicksand' }}>Milk</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="opacity-50">
+                  <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+             </div>
+
+             {/* Search Bar Component */}
+             <div className="flex w-full h-[46px] px-4 items-center gap-2 rounded-full bg-[#222328] border border-[#2F2F2F]">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#969696" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <span className="text-[#969696] text-[14px]">Search ...</span>
+             </div>
+
+             {/* List Item - Normal */}
+             <div className="flex w-full h-[46px] px-4 items-center gap-3 rounded-xl bg-[#222328]">
+                <div className="w-6 h-6 rounded-md bg-[#18171C] flex items-center justify-center text-[10px]">🥜</div>
+                <span className="text-[#CDCDCD] text-[18px] font-medium" style={{ fontFamily: 'Quicksand' }}>Peanuts</span>
+             </div>
+
+             {/* List Item - Selected */}
+             <div className="flex w-full h-[46px] px-4 items-center gap-3 rounded-xl bg-[#0C180C] border border-[#00C600]/30 shadow-[0_0_15px_rgba(0,198,0,0.1)]">
+                <div className="w-6 h-6 rounded-md bg-[#18171C] flex items-center justify-center text-[10px]">🍄</div>
+                <span className="text-white text-[18px] font-medium" style={{ fontFamily: 'Quicksand' }}>Mushroom</span>
+                <div className="ml-auto w-5 h-5 rounded-full bg-[#8FFC86] flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0F0E11" strokeWidth="3">
+                    <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+             </div>
+          </div>
+        </section>
+
         {/* Functional Benefits Section */}
         <section className="flex flex-col gap-5 w-full">
           <h2 className="text-[#8FFC86] text-xs font-bold uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
@@ -121,14 +197,6 @@ const ComponentsLibrary: React.FC<ComponentsLibraryProps> = ({ onBack }) => {
                 />
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <div className="flex h-6 px-3 py-1 items-center gap-2 rounded-md border border-[#807348] bg-[#2B2413]">
-                <span className="text-[#F9E39E] text-[10px] font-bold uppercase tracking-wider">Rich Calcium</span>
-              </div>
-              <div className="flex h-6 px-3 py-1 items-center gap-2 rounded-md border border-[#488059] bg-[#132B1A]">
-                <span className="text-[#9EF9BB] text-[10px] font-bold uppercase tracking-wider">High Fiber</span>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -153,48 +221,6 @@ const ComponentsLibrary: React.FC<ComponentsLibraryProps> = ({ onBack }) => {
             </div>
           </div>
         </section>
-
-        {/* Your Order Items Section */}
-        <section className="flex flex-col gap-5 w-full">
-          <h2 className="text-[#8FFC86] text-xs font-bold uppercase tracking-[0.2em]">Cart & Orders</h2>
-          <div className="w-full flex flex-col items-start">
-            <div className="flex flex-col w-full max-w-[358px] overflow-hidden rounded-[12px] bg-[#222328]">
-              <div className="flex w-full h-[48px] px-4 items-center justify-between border-b-[0.7px] border-[#2F2F2F]">
-                <span className="text-white text-[16px] font-medium" style={{ fontFamily: 'Quicksand' }}>Your Order item (2)</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M18 15L12 9L6 15" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="flex flex-col p-4 gap-4">
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-start gap-2 flex-1">
-                      <div className="mt-1">
-                        <VegIcon />
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <div className="text-[#EFEFEF] text-[12px]" style={{ fontFamily: 'Quicksand' }}>
-                          <span className="font-bold">Burger With Meat </span>
-                          <span className="font-normal">(Half)</span>
-                        </div>
-                        <div className="text-[#EFEFEF] text-[12px] font-bold" style={{ fontFamily: 'Quicksand' }}>₹190</div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-2">
-                      <div className="flex w-[76px] h-[30px] items-center justify-between px-2 bg-[#EFEFEF] rounded-lg shadow-sm">
-                        <button className="text-[#009700] text-lg font-bold">－</button>
-                        <span className="text-[#0F0E11] text-[14px] font-bold">2</span>
-                        <button className="text-[#0F0E11] text-lg font-bold">＋</button>
-                      </div>
-                      <div className="text-[#EFEFEF] text-[12px] font-bold" style={{ fontFamily: 'Quicksand' }}>₹190</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
       </div>
       
       <p className="mt-12 text-[#595959] text-[11px] text-center w-full">
@@ -214,13 +240,6 @@ const BenefitRow = ({ icon, title, description }: { icon: string, title: string,
       <span className="text-[#CDCDCD] text-[12px] font-medium leading-relaxed" style={{ fontFamily: 'Quicksand' }}>{description}</span>
     </div>
   </div>
-);
-
-const VegIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-    <path d="M10 0H2C0.895431 0 0 0.895431 0 2V10C0 11.1046 0.895431 12 2 12H10C11.1046 12 12 11.1046 12 10V2C12 0.895431 11.1046 0 10 0Z" fill="#FEFEFE" stroke="#008000"/>
-    <path d="M6 9C7.65685 9 9 7.65685 9 6C9 4.34315 7.65685 3 6 3C4.34315 3 3 4.34315 3 6C3 7.65685 4.34315 9 6 9Z" fill="#008000" stroke="#008000"/>
-  </svg>
 );
 
 export default ComponentsLibrary;

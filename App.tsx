@@ -18,8 +18,9 @@ import LandingPage from './components/LandingPage';
 import LoginSheet from './components/LoginSheet';
 import OtpSheet from './components/OtpSheet';
 import ComponentsLibrary from './components/ComponentsLibrary';
+import PreferencePage from './components/PreferencePage';
 
-type Page = 'landing' | 'login' | 'otp' | 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize' | 'components_library';
+type Page = 'landing' | 'login' | 'otp' | 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize' | 'components_library' | 'preference';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('landing');
@@ -45,7 +46,9 @@ const App: React.FC = () => {
       case 'profile':
         return <ProfilePage onBack={() => setCurrentPage('nav')} onPersonalize={() => setCurrentPage('personalize')} />;
       case 'personalize':
-        return <PersonalizePage onBack={() => setCurrentPage('profile')} onNext={() => setCurrentPage('nutrition')} />;
+        return <PersonalizePage onBack={() => setCurrentPage('profile')} onNext={() => setCurrentPage('preference')} />;
+      case 'preference':
+        return <PreferencePage onBack={() => setCurrentPage('personalize')} onNext={() => setCurrentPage('nutrition')} />;
       case 'components_library':
         return <ComponentsLibrary onBack={() => setCurrentPage('nav')} />;
       case 'nutrition':

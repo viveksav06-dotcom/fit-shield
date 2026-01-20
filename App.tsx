@@ -11,8 +11,10 @@ import MenuPage from './components/MenuPage';
 import MenuDesign2 from './components/MenuDesign2';
 import IngredientsPage from './components/IngredientsPage';
 import OrderSummaryPage from './components/OrderSummaryPage';
+import RecommendationsPage from './components/RecommendationsPage';
+import ProfilePage from './components/ProfilePage';
 
-type Page = 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary';
+type Page = 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('nav');
@@ -27,6 +29,10 @@ const App: React.FC = () => {
         return <IngredientsPage onBack={() => setCurrentPage('menu')} onAdd={() => setCurrentPage('cart')} />;
       case 'summary':
         return <OrderSummaryPage onBack={() => setCurrentPage('cart')} onAddMore={() => setCurrentPage('menu')} />;
+      case 'recommendations':
+        return <RecommendationsPage onBack={() => setCurrentPage('nav')} onAdd={() => setCurrentPage('cart')} />;
+      case 'profile':
+        return <ProfilePage onBack={() => setCurrentPage('nav')} />;
       case 'nutrition':
         return (
           <div className="relative pb-20">

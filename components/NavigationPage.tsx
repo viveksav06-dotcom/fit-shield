@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface NavigationPageProps {
-  onNavigate: (page: 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary') => void;
+  onNavigate: (page: 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile') => void;
 }
 
 const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
@@ -14,6 +14,18 @@ const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
       </header>
 
       <div className="flex flex-col w-full gap-4">
+        <NavCard 
+          title="My Profile" 
+          description="View and edit your personal details (Node 134-24287)"
+          icon="👤"
+          onClick={() => onNavigate('profile')}
+        />
+        <NavCard 
+          title="Recommendations" 
+          description="Personalized meal suggestions (Node 1618877431)"
+          icon="✨"
+          onClick={() => onNavigate('recommendations')}
+        />
         <NavCard 
           title="Order Summary" 
           description="Final receipt view for kitchen staff (Node 117-8006)"

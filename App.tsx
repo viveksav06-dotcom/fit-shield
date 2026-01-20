@@ -10,8 +10,9 @@ import Cart4Page from './components/Cart4Page';
 import MenuPage from './components/MenuPage';
 import MenuDesign2 from './components/MenuDesign2';
 import IngredientsPage from './components/IngredientsPage';
+import OrderSummaryPage from './components/OrderSummaryPage';
 
-type Page = 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients';
+type Page = 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('nav');
@@ -24,6 +25,8 @@ const App: React.FC = () => {
         return <MenuDesign2 onBack={() => setCurrentPage('menu')} />;
       case 'ingredients':
         return <IngredientsPage onBack={() => setCurrentPage('menu')} onAdd={() => setCurrentPage('cart')} />;
+      case 'summary':
+        return <OrderSummaryPage onBack={() => setCurrentPage('cart')} onAddMore={() => setCurrentPage('menu')} />;
       case 'nutrition':
         return (
           <div className="relative pb-20">
@@ -56,7 +59,7 @@ const App: React.FC = () => {
         return (
           <div className="relative pb-20">
             <Header onBack={() => setCurrentPage('menu')} title="My Cart" />
-            <CartPage onFinish={() => setCurrentPage('log')} />
+            <CartPage onFinish={() => setCurrentPage('summary')} />
           </div>
         );
       case 'cart4':

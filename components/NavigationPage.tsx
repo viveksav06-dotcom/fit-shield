@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface NavigationPageProps {
-  onNavigate: (page: 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients') => void;
+  onNavigate: (page: 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary') => void;
 }
 
 const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
@@ -14,6 +14,12 @@ const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
       </header>
 
       <div className="flex flex-col w-full gap-4">
+        <NavCard 
+          title="Order Summary" 
+          description="Final receipt view for kitchen staff (Node 117-8006)"
+          icon="📄"
+          onClick={() => onNavigate('summary')}
+        />
         <NavCard 
           title="Ingredients" 
           description="Detailed view of dish components (Node 113-53902)"

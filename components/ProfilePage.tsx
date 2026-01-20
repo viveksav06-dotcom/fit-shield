@@ -3,9 +3,10 @@ import React from 'react';
 
 interface ProfilePageProps {
   onBack: () => void;
+  onPersonalize: () => void;
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = ({ onBack }) => {
+const ProfilePage: React.FC<ProfilePageProps> = ({ onBack, onPersonalize }) => {
   return (
     <div className="flex flex-col items-start w-full min-h-screen bg-[#0F0E11] px-4 pt-11 pb-10">
       {/* Top Navigation */}
@@ -17,7 +18,6 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onBack }) => {
         </button>
         <span className="text-[#EFEFEF] text-[16px] font-bold leading-6" style={{ fontFamily: 'Quicksand' }}>Profile </span>
         <div className="w-8 h-8 rounded-full bg-[#0F0E11] flex items-center justify-center">
-          {/* Spacer to match Figma node 134:24290 exactly */}
         </div>
       </div>
 
@@ -40,7 +40,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onBack }) => {
             <div className="flex justify-between items-center self-stretch">
               <div className="flex items-center gap-2.5">
                 <span className="text-[#CDCDCD] text-center text-[16px] font-medium leading-normal" style={{ fontFamily: 'Quicksand' }}>
-                  Enter Your Name
+                  Krishna
                 </span>
               </div>
               <button className="text-[#8FFC86] active:scale-90 transition-transform">
@@ -52,7 +52,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onBack }) => {
           </div>
 
           {/* Personalisation Navigation Field */}
-          <button className="flex h-11 px-3 py-2.5 flex-col justify-center items-center gap-3 self-stretch rounded-xl bg-[#222328] active:bg-[#2F2F39] transition-colors group">
+          <button 
+            onClick={onPersonalize}
+            className="flex h-11 px-3 py-2.5 flex-col justify-center items-center gap-3 self-stretch rounded-xl bg-[#222328] active:bg-[#2F2F39] transition-colors group"
+          >
             <div className="flex justify-between items-center self-stretch">
               <div className="flex items-center gap-2.5">
                 <span className="text-[#CDCDCD] text-center text-[16px] font-medium leading-normal" style={{ fontFamily: 'Quicksand' }}>

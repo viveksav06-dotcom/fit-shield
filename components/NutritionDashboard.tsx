@@ -1,7 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import SetGoalSheet from './SetGoalSheet';
 
 const NutritionDashboard: React.FC = () => {
+  const [isSetGoalOpen, setIsSetGoalOpen] = useState(false);
+
   return (
     <div className="flex flex-col items-center gap-4 px-4 py-6 w-full pb-24">
       {/* Header (Simplified Boketto Logo Area) */}
@@ -18,7 +21,13 @@ const NutritionDashboard: React.FC = () => {
       <div className="flex w-full p-3 flex-col items-start gap-[7px] rounded-[12px] bg-[#222328]">
         <div className="flex justify-between items-start w-full">
           <span className="text-[#EFEFEF] text-[14px] font-medium" style={{ fontFamily: 'Quicksand' }}>Your Dinner Goal</span>
-          <span className="text-[#8FFC86] text-[14px] font-semibold underline cursor-pointer" style={{ fontFamily: 'Quicksand' }}>Edit</span>
+          <span 
+            onClick={() => setIsSetGoalOpen(true)}
+            className="text-[#8FFC86] text-[14px] font-semibold underline cursor-pointer active:opacity-70 transition-opacity" 
+            style={{ fontFamily: 'Quicksand' }}
+          >
+            Edit
+          </span>
         </div>
         <div className="flex items-center gap-3 w-full">
           <div className="relative w-[67px] h-[67px] flex items-center justify-center flex-shrink-0">
@@ -67,6 +76,9 @@ const NutritionDashboard: React.FC = () => {
            />
         </div>
       </div>
+
+      {/* Set Goal Bottom Sheet */}
+      <SetGoalSheet isOpen={isSetGoalOpen} onClose={() => setIsSetGoalOpen(false)} />
     </div>
   );
 };

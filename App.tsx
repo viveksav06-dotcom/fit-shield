@@ -14,14 +14,23 @@ import OrderSummaryPage from './components/OrderSummaryPage';
 import RecommendationsPage from './components/RecommendationsPage';
 import ProfilePage from './components/ProfilePage';
 import PersonalizePage from './components/PersonalizePage';
+import LandingPage from './components/LandingPage';
+import LoginSheet from './components/LoginSheet';
+import OtpSheet from './components/OtpSheet';
 
-type Page = 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize';
+type Page = 'landing' | 'login' | 'otp' | 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize';
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>('nav');
+  const [currentPage, setCurrentPage] = useState<Page>('landing');
 
   const renderPage = () => {
     switch (currentPage) {
+      case 'landing':
+        return <LandingPage onNext={() => setCurrentPage('login')} />;
+      case 'login':
+        return <LoginSheet onNext={() => setCurrentPage('otp')} onBack={() => setCurrentPage('landing')} />;
+      case 'otp':
+        return <OtpSheet onNext={() => setCurrentPage('nav')} onBack={() => setCurrentPage('login')} />;
       case 'menu':
         return <MenuPage onBack={() => setCurrentPage('nav')} onCart={() => setCurrentPage('cart')} onCustomise={() => setCurrentPage('detail')} />;
       case 'menu2':

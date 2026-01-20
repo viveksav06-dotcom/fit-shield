@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SetGoalSheet from './SetGoalSheet';
 
@@ -17,41 +16,62 @@ const NutritionDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Goal Card */}
+      {/* Goal Card - Refined Design 2 */}
       <div className="flex w-full p-3 flex-col items-start gap-[7px] rounded-[12px] bg-[#222328]">
-        <div className="flex justify-between items-start w-full">
-          <span className="text-[#EFEFEF] text-[14px] font-medium" style={{ fontFamily: 'Quicksand' }}>Your Dinner Goal</span>
-          <span 
-            onClick={() => setIsSetGoalOpen(true)}
-            className="text-[#8FFC86] text-[14px] font-semibold underline cursor-pointer active:opacity-70 transition-opacity" 
-            style={{ fontFamily: 'Quicksand' }}
-          >
-            Edit
-          </span>
-        </div>
-        <div className="flex items-center gap-3 w-full">
-          <div className="relative w-[67px] h-[67px] flex items-center justify-center flex-shrink-0">
-            <svg width="67" height="67" viewBox="0 0 67 67" fill="none">
-              <circle cx="33.5" cy="33.5" r="30" stroke="#18171C" strokeWidth="6" />
-              <path d="M33.5 3.5 A 30 30 0 0 1 63.5 33.5" stroke="#FEFFC4" strokeWidth="6" fill="none" />
-              <path d="M63.5 33.5 A 30 30 0 0 1 33.5 63.5" stroke="#AED2FF" strokeWidth="6" fill="none" />
-            </svg>
-            <div className="absolute flex flex-col items-center">
-              <span className="lexend font-medium text-[16px] text-white leading-none">622</span>
-              <span className="lexend text-[10px] text-[#CCCCCC]">Kcal</span>
+        <div className="flex flex-col items-center gap-1.5 self-stretch">
+          <div className="flex flex-col items-start gap-2.5 self-stretch">
+            <div className="flex justify-between items-center self-stretch">
+              <span className="text-[#EFEFEF] text-[14px] font-medium" style={{ fontFamily: 'Quicksand' }}>Your Dinner Goal</span>
+              <span 
+                onClick={() => setIsSetGoalOpen(true)}
+                className="text-[#8FFC86] text-[14px] font-semibold underline cursor-pointer active:opacity-70 transition-opacity" 
+                style={{ fontFamily: 'Quicksand' }}
+              >
+                Edit
+              </span>
             </div>
-          </div>
-          <div className="flex flex-1 h-[56px] px-3 justify-between items-center rounded-[12px] border-[0.6px] border-[#2F2F2F] bg-[#18171C]">
-            <MacroSummaryItem color="#FEFFC4" val="25" label="Protein" />
-            <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
-            <MacroSummaryItem color="#AED2FF" val="90" label="Carb" />
-            <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
-            <MacroSummaryItem color="#BCA2FF" val="18" label="Fat" />
+            
+            <div className="flex items-center gap-3 self-stretch">
+              {/* Multi-segmented Gauge */}
+              <div className="relative w-[67px] h-[67px] flex items-center justify-center flex-shrink-0">
+                <svg width="67" height="67" viewBox="0 0 67 67" fill="none" className="transform -rotate-90">
+                  <circle cx="33.5" cy="33.5" r="30" stroke="#2F2F37" strokeWidth="6.5" />
+                  <path d="M63.5 33.5 A 30 30 0 0 0 33.5 3.5" stroke="#FEFFC4" strokeWidth="6.5" fill="none" />
+                  <path d="M33.5 63.5 A 30 30 0 0 0 63.5 33.5" stroke="#AED2FF" strokeWidth="6.5" fill="none" />
+                  <path d="M3.5 33.5 A 30 30 0 0 0 33.5 63.5" stroke="#BCA2FF" strokeWidth="6.5" fill="none" />
+                  <path d="M33.5 3.5 A 30 30 0 0 0 3.5 33.5" stroke="#FFABF4" strokeWidth="6.5" fill="none" />
+                </svg>
+                <div className="absolute flex flex-col items-center rotate-90">
+                  <span className="lexend font-medium text-[16px] text-white leading-none">622</span>
+                  <span className="lexend text-[12px] text-[#CCCCCC]">Kcal</span>
+                </div>
+              </div>
+
+              {/* Macro Info Panel */}
+              <div className="flex flex-col p-[8px_12px] items-start gap-3 flex-1 rounded-[12px] border border-[#2F2F2F] bg-[#18171C]">
+                <div className="flex justify-between items-center self-stretch">
+                  <MacroMiniItem color="#FEFFC4" val="25" label="Protein" />
+                  <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
+                  <MacroMiniItem color="#AED2FF" val="90" label="Carb" />
+                  <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
+                  <MacroMiniItem color="#BCA2FF" val="18" label="Fat" />
+                  <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
+                  <MacroMiniItem color="#FFABF4" val="18" label="Fiber" />
+                </div>
+                {/* Internal Progress Bar */}
+                <div className="relative w-full h-[4px] bg-[#292A2C] rounded-full overflow-hidden shadow-inner">
+                  <div 
+                    className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-[#098909] to-[#00C500]" 
+                    style={{ width: '60%' }}
+                  ></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Recommended For You Section - Refined for Recheck */}
+      {/* Recommended For You Section */}
       <div className="flex flex-col w-full gap-3 mt-4">
         <div className="flex items-center justify-between self-stretch">
           <h2 className="text-[#EFEFEF] text-[16px] font-semibold" style={{ fontFamily: 'Inter' }}>Recommended For You</h2>
@@ -83,13 +103,13 @@ const NutritionDashboard: React.FC = () => {
   );
 };
 
-const MacroSummaryItem = ({ color, val, label }: { color: string, val: string, label: string }) => (
-  <div className="flex flex-col items-center justify-center">
+const MacroMiniItem = ({ color, val, label }: { color: string, val: string, label: string }) => (
+  <div className="flex flex-col items-center justify-center gap-1">
     <div className="flex items-center gap-1">
       <div className="w-[5px] h-[5px] rounded-full" style={{ backgroundColor: color }}></div>
-      <div className="lexend text-[12px] font-medium text-white">{val}g</div>
+      <div className="lexend text-[12px] font-medium text-white leading-none">{val}<span className="text-[10px] text-[#CCC] font-light">gm</span></div>
     </div>
-    <span className="lexend text-[10px] text-[#CCC] font-normal">{label}</span>
+    <span className="lexend text-[12px] text-[#CCC] font-normal leading-none">{label}</span>
   </div>
 );
 

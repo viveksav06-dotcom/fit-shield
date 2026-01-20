@@ -17,8 +17,9 @@ import PersonalizePage from './components/PersonalizePage';
 import LandingPage from './components/LandingPage';
 import LoginSheet from './components/LoginSheet';
 import OtpSheet from './components/OtpSheet';
+import ComponentsLibrary from './components/ComponentsLibrary';
 
-type Page = 'landing' | 'login' | 'otp' | 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize';
+type Page = 'landing' | 'login' | 'otp' | 'nav' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize' | 'components_library';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('landing');
@@ -26,11 +27,11 @@ const App: React.FC = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'landing':
-        return <LandingPage onNext={() => setCurrentPage('login')} />;
+        return <LandingPage onNext={() => setCurrentPage('nav')} />;
       case 'login':
-        return <LoginSheet onNext={() => setCurrentPage('otp')} onBack={() => setCurrentPage('landing')} />;
+        return <LoginSheet onNext={() => setCurrentPage('otp')} onBack={() => setCurrentPage('nav')} />;
       case 'otp':
-        return <OtpSheet onNext={() => setCurrentPage('nav')} onBack={() => setCurrentPage('login')} />;
+        return <OtpSheet onNext={() => setCurrentPage('nav')} onBack={() => setCurrentPage('nav')} />;
       case 'menu':
         return <MenuPage onBack={() => setCurrentPage('nav')} onCart={() => setCurrentPage('cart')} onCustomise={() => setCurrentPage('detail')} />;
       case 'menu2':
@@ -45,6 +46,8 @@ const App: React.FC = () => {
         return <ProfilePage onBack={() => setCurrentPage('nav')} onPersonalize={() => setCurrentPage('personalize')} />;
       case 'personalize':
         return <PersonalizePage onBack={() => setCurrentPage('profile')} onNext={() => setCurrentPage('nutrition')} />;
+      case 'components_library':
+        return <ComponentsLibrary onBack={() => setCurrentPage('nav')} />;
       case 'nutrition':
         return (
           <div className="relative pb-20">

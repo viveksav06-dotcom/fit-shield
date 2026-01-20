@@ -85,33 +85,44 @@ const MenuPage: React.FC<MenuPageProps> = ({ onBack, onCart, onCustomise }) => {
         </div>
       </div>
 
-      {/* Your Dinner Goal Card */}
+      {/* Your Dinner Goal Card - Refined Design 2 */}
       <div className="w-full px-4">
-        <div className="w-full p-4 rounded-[16px] bg-[#222328] border border-[#2F2F2F]">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-white text-sm font-semibold" style={{ fontFamily: 'Quicksand' }}>Your Dinner Goal</span>
-            <span className="text-[#8FFC86] text-sm font-bold underline cursor-pointer" style={{ fontFamily: 'Quicksand' }}>Edit</span>
+        <div className="flex w-full p-3 flex-col items-start gap-[7px] rounded-[12px] bg-[#222328] border border-[#2F2F2F]">
+          <div className="flex justify-between items-center self-stretch mb-1">
+            <span className="text-[#EFEFEF] text-[14px] font-medium" style={{ fontFamily: 'Quicksand' }}>Your Dinner Goal</span>
+            <span className="text-[#8FFC86] text-[14px] font-semibold underline cursor-pointer active:opacity-70 transition-opacity" style={{ fontFamily: 'Quicksand' }}>Edit</span>
           </div>
-          <div className="flex items-center gap-5">
-            {/* Progress Ring */}
-            <div className="relative w-[72px] h-[72px] flex items-center justify-center">
-              <svg width="72" height="72" viewBox="0 0 72 72" className="transform -rotate-90">
-                <circle cx="36" cy="36" r="34" stroke="#18171C" strokeWidth="4" fill="none" />
-                <circle cx="36" cy="36" r="34" stroke="#FEFFC4" strokeWidth="4" strokeDasharray="213" strokeDashoffset="160" fill="none" />
-                <circle cx="36" cy="36" r="34" stroke="#AED2FF" strokeWidth="4" strokeDasharray="213" strokeDashoffset="100" strokeDashoffset-delay="20" fill="none" />
+          
+          <div className="flex items-center gap-3 self-stretch">
+            {/* Gauge */}
+            <div className="relative w-[67px] h-[67px] flex items-center justify-center flex-shrink-0">
+              <svg width="67" height="67" viewBox="0 0 67 67" fill="none" className="transform -rotate-90">
+                <circle cx="33.5" cy="33.5" r="30" stroke="#18171C" strokeWidth="6" />
+                <path d="M63.5 33.5 A 30 30 0 0 0 33.5 3.5" stroke="#FEFFC4" strokeWidth="6" fill="none" />
+                <path d="M33.5 63.5 A 30 30 0 0 0 63.5 33.5" stroke="#AED2FF" strokeWidth="6" fill="none" />
+                <path d="M3.5 33.5 A 30 30 0 0 0 33.5 63.5" stroke="#BCA2FF" strokeWidth="6" fill="none" />
+                <path d="M33.5 3.5 A 30 30 0 0 0 3.5 33.5" stroke="#FFABF4" strokeWidth="6" fill="none" />
               </svg>
-              <div className="absolute flex flex-col items-center">
-                <span className="text-white text-lg font-bold" style={{ fontFamily: 'Lexend' }}>622</span>
-                <span className="text-[#969696] text-[10px]" style={{ fontFamily: 'Lexend' }}>Kcal</span>
+              <div className="absolute flex flex-col items-center rotate-90">
+                <span className="text-white text-[16px] font-bold leading-none" style={{ fontFamily: 'Lexend' }}>622</span>
+                <span className="text-[#CCCCCC] text-[10px]" style={{ fontFamily: 'Lexend' }}>Kcal</span>
               </div>
             </div>
 
-            {/* Macro Panel */}
-            <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-2 py-2 px-4 rounded-[12px] bg-[#18171C] border border-[#2F2F2F]">
-              <GoalMacroItem color="#FEFFC4" val="25" label="Protein" />
-              <GoalMacroItem color="#AED2FF" val="90" label="Carb" />
-              <GoalMacroItem color="#BCA2FF" val="18" label="Fat" />
-              <GoalMacroItem color="#FFABF4" val="18" label="Fiber" />
+            {/* Macro Grid Area */}
+            <div className="flex flex-col p-[8px_12px] items-start gap-3 flex-1 rounded-[12px] border border-[#2F2F2F] bg-[#18171C]">
+              <div className="flex justify-between items-center self-stretch">
+                <MenuGoalMacro color="#FEFFC4" val="25" label="Protein" />
+                <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
+                <MenuGoalMacro color="#AED2FF" val="90" label="Carb" />
+                <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
+                <MenuGoalMacro color="#BCA2FF" val="18" label="Fat" />
+                <div className="w-[1px] h-[14px] bg-[#3E3E3E]"></div>
+                <MenuGoalMacro color="#FFABF4" val="18" label="Fiber" />
+              </div>
+              <div className="relative w-full h-[3px] bg-[#292A2C] rounded-full overflow-hidden shadow-inner">
+                <div className="absolute left-0 top-0 h-full rounded-full bg-[#8FFC86]" style={{ width: '45%' }}></div>
+              </div>
             </div>
           </div>
         </div>
@@ -179,13 +190,13 @@ const MenuPage: React.FC<MenuPageProps> = ({ onBack, onCart, onCustomise }) => {
   );
 };
 
-const GoalMacroItem = ({ color, val, label }: any) => (
-  <div className="flex items-center gap-2">
-    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }}></div>
-    <div className="flex flex-col">
-      <span className="text-white text-xs font-bold" style={{ fontFamily: 'Lexend' }}>{val}g</span>
-      <span className="text-[#969696] text-[8px] uppercase tracking-tighter" style={{ fontFamily: 'Lexend' }}>{label}</span>
+const MenuGoalMacro = ({ color, val, label }: any) => (
+  <div className="flex flex-col items-center justify-center">
+    <div className="flex items-center gap-1">
+      <div className="w-1 h-1 rounded-full" style={{ backgroundColor: color }}></div>
+      <span className="text-white text-[10px] font-bold" style={{ fontFamily: 'Lexend' }}>{val}g</span>
     </div>
+    <span className="text-[#969696] text-[8px] uppercase tracking-tighter" style={{ fontFamily: 'Lexend' }}>{label}</span>
   </div>
 );
 

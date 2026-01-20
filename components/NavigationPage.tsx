@@ -2,7 +2,7 @@
 import React from 'react';
 
 interface NavigationPageProps {
-  onNavigate: (page: 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize') => void;
+  onNavigate: (page: 'login' | 'otp' | 'nutrition' | 'detail' | 'hunger' | 'log' | 'cart' | 'cart4' | 'menu' | 'menu2' | 'ingredients' | 'summary' | 'recommendations' | 'profile' | 'personalize' | 'components_library') => void;
 }
 
 const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
@@ -15,44 +15,72 @@ const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
 
       <div className="flex flex-col w-full gap-4">
         <NavCard 
+          title="Component Library" 
+          description="Atomic UI elements & Building blocks"
+          icon="🧩"
+          onClick={() => onNavigate('components_library')}
+          featured
+        />
+        <div className="h-[1px] w-full bg-[#2F2F2F] my-2"></div>
+        
+        <div className="grid grid-cols-2 gap-4 w-full">
+           <button 
+             onClick={() => onNavigate('login')}
+             className="flex flex-col p-4 rounded-2xl bg-[#222328] border border-[#2F2F2F] active:scale-95 transition-all text-left"
+           >
+             <span className="text-xl mb-2">📲</span>
+             <span className="text-white font-bold text-sm">Login UI</span>
+           </button>
+           <button 
+             onClick={() => onNavigate('otp')}
+             className="flex flex-col p-4 rounded-2xl bg-[#222328] border border-[#2F2F2F] active:scale-95 transition-all text-left"
+           >
+             <span className="text-xl mb-2">🔢</span>
+             <span className="text-white font-bold text-sm">OTP UI</span>
+           </button>
+        </div>
+
+        <div className="h-[1px] w-full bg-[#2F2F2F] my-2"></div>
+
+        <NavCard 
           title="Personalize Form" 
-          description="Tailor your profile settings (Frame 2043684147)"
+          description="Tailor your profile settings"
           icon="🎯"
           onClick={() => onNavigate('personalize')}
         />
         <NavCard 
           title="My Profile" 
-          description="View and edit your personal details (Node 134-24287)"
+          description="View and edit your personal details"
           icon="👤"
           onClick={() => onNavigate('profile')}
         />
         <NavCard 
           title="Recommendations" 
-          description="Personalized meal suggestions (Node 1618877431)"
+          description="Personalized meal suggestions"
           icon="✨"
           onClick={() => onNavigate('recommendations')}
         />
         <NavCard 
           title="Order Summary" 
-          description="Final receipt view for kitchen staff (Node 117-8006)"
+          description="Final receipt view for kitchen staff"
           icon="📄"
           onClick={() => onNavigate('summary')}
         />
         <NavCard 
           title="Ingredients" 
-          description="Detailed view of dish components (Node 113-53902)"
+          description="Detailed view of dish components"
           icon="🥑"
           onClick={() => onNavigate('ingredients')}
         />
         <NavCard 
           title="Menu Design 2" 
-          description="Category Selector Overlay (Frame 1618877364)"
+          description="Category Selector Overlay"
           icon="📋"
           onClick={() => onNavigate('menu2')}
         />
         <NavCard 
           title="Full Menu" 
-          description="Interactive food menu (Node 112-38014)"
+          description="Interactive food menu"
           icon="🍴"
           onClick={() => onNavigate('menu')}
         />
@@ -101,16 +129,18 @@ const NavigationPage: React.FC<NavigationPageProps> = ({ onNavigate }) => {
   );
 };
 
-const NavCard = ({ title, description, icon, onClick }: { title: string, description: string, icon: string, onClick: () => void }) => (
+const NavCard = ({ title, description, icon, onClick, featured = false }: { title: string, description: string, icon: string, onClick: () => void, featured?: boolean }) => (
   <button 
     onClick={onClick}
-    className="flex items-center w-full p-5 bg-[#222328] rounded-[24px] border border-[#2F2F2F] hover:border-[#8FFC86] transition-all group active:scale-95 text-left shadow-xl"
+    className={`flex items-center w-full p-5 rounded-[24px] border transition-all group active:scale-95 text-left shadow-xl ${
+      featured ? 'bg-[#182a18] border-[#8FFC86]/50' : 'bg-[#222328] border-[#2F2F2F]'
+    } hover:border-[#8FFC86]`}
   >
     <div className="w-14 h-14 rounded-2xl bg-[#18171C] flex items-center justify-center text-2xl mr-4 shadow-inner border border-[#2F2F2F]">
       {icon}
     </div>
     <div className="flex-1">
-      <h3 className="text-white text-lg font-bold group-hover:text-[#8FFC86] transition-colors" style={{ fontFamily: 'Quicksand' }}>{title}</h3>
+      <h3 className={`text-lg font-bold group-hover:text-[#8FFC86] transition-colors ${featured ? 'text-[#8FFC86]' : 'text-white'}`} style={{ fontFamily: 'Quicksand' }}>{title}</h3>
       <p className="text-[#969696] text-xs font-medium" style={{ fontFamily: 'Quicksand' }}>{description}</p>
     </div>
     <div className="text-[#8FFC86] transform group-hover:translate-x-1 transition-all">

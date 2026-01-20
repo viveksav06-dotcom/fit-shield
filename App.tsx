@@ -75,10 +75,7 @@ const App: React.FC = () => {
         );
       case 'cart':
         return (
-          <div className="relative pb-20">
-            <Header onBack={() => setCurrentPage('menu')} title="My Cart" />
-            <CartPage onFinish={() => setCurrentPage('summary')} />
-          </div>
+          <CartPage onFinish={() => setCurrentPage('summary')} onAddMore={() => setCurrentPage('menu')} />
         );
       case 'cart4':
         return (
